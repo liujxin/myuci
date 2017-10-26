@@ -1,5 +1,6 @@
 OpenWrt LuCI for ShadowsocksR-libev
 ===
+自用转于 https://github.com/AlexZhuo/luci-app-shadowsocksR
 恩山乌卡卡版本的升级版,已在[该固件][O]中应用
 简介
 ---
