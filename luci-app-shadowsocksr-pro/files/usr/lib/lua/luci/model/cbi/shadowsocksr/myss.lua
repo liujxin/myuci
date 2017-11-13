@@ -1,20 +1,21 @@
-local fs = require "nixio.fs"
+local myss = "/etc/myss"
 
-local f = SimpleForm("myss",
-	translate("服务器记事本"))
 
-local o = f:field(Value, "_myss")
+f = SimpleForm("myss", translate("服务器记事本"))
 
-o.template = "cbi/tvalue"
-o.rows = 20
-
-function o.cfgvalue(self, section)
-	return fs.readfile("/etc/myss")
+t = f:field(TextValue, "lines")
+t.wrap = "off"
+t.rows = 20
+function t.cfgvalue()
+	return nixio.fs.readfile(myss) or ""
 end
 
-function o.write(self, section, value)
-	value = value:gsub("\r\n?", "\n")
-	fs.writefile("/etc/myss", value)
+function t.write(self, section, data)
+	return nixio.fs.writefile(myss, data:gsub("\r\n", "\n"))
+end
+
+function f.handle(self, state, data)
+	return true
 end
 
 return f

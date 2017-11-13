@@ -47,6 +47,7 @@ method:value("rc4-md5")
 method:value("aes-128-cfb")
 method:value("aes-192-cfb")
 method:value("aes-256-cfb")
+method:value("aes-256-ctr")
 method:value("bf-cfb")
 method:value("camellia-128-cfb")
 method:value("camellia-192-cfb")
@@ -144,7 +145,12 @@ obfs_param:depends("more", "1")
 adbyby=s:option(Flag,"adbyby",translate("配合Adbyby或koolproxy使用"),translate("未开启Adbyby或koolproxy时请不要勾选此项"))
 adbyby:depends("more", "1") 
 adbyby.rmempty=false
-
+t = s:option(TextValue, "lines")
+t.wrap = "off"
+t.rows = 10
+function t.cfgvalue()
+	return nixio.fs.readfile("/etc/myss") or ""
+end
 
 
 -- ---------------------------------------------------
